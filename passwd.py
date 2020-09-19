@@ -6,7 +6,7 @@
 import string
 
 with open("top_10k.txt", 'r') as wordlist:
-	top_10k = wordlist.readlines()
+	top_10k = wordlist.read().splitlines()
 
 #-----------------------------------------------------------------------------
 class PasswordStrength():
@@ -144,28 +144,38 @@ class PasswordStrength():
 
 		return False
 
+	''' Check if password has made it to the top 10k most probable passwords'''
+	def popularity(self):
+		if self.password in top_10k:
+			return True
+		return False
+
+	def table_print(self, desc, value):
+		print("{:<65s}{:>10s}".format(desc, str(value)))
+
 	''' Verbose output showing breakdown of score calulation'''
 	def verbose(self):
-		print(f"Password: {self.password}")
+		self.table_print("Password:" , self.password)
 		print('-' * 80)
 
-		print(f"Length: {self.length}")
-		print(f"Number of uppercase characters: {self.uppercase_count()}")
-		print(f"Number of lowercase characters: {self.lowercase_count()}")
-		print(f"Number of digits: {self.digit_count()}")
-		print(f"Number of special characters: {self.special_count()}")
-		print(f"Number of special characters & digits in middle of password: {self.middle_count()}")
-		print(f"Password is made up of letters only: {self.letters_only()}")
-		print(f"Password is made up of numbers only: {self.numbers_only()}")
-		print(f"Contains same character more than one: {self.repeating()}")
-		print(f"Consecutive characters having same case/type: {self.consecutive()}")
-		print(f"Contains numbers in a numerical sequence: {self.sequential_numbers()}")
-		print(f"Contains alphabets in an alphabetical sequence: {self.sequential_letters()}")
-		print(f"Follows current password rules: {self.current_practice()}")
+		self.table_print("Length:", self.length)
+		self.table_print("Number of uppercase characters:", self.uppercase_count())
+		self.table_print("Number of lowercase characters:", self.lowercase_count())
+		self.table_print("Number of digits:", self.digit_count())
+		self.table_print("Number of special characters:", self.special_count())
+		self.table_print("Number of special characters & digits in middle of password:", self.middle_count())
+		self.table_print("Password is made up of letters only:", self.letters_only())
+		self.table_print("Password is made up of numbers only:", self.numbers_only())
+		self.table_print("Contains same character more than one:", self.repeating())
+		self.table_print("Consecutive characters having same case/type:", self.consecutive())
+		self.table_print("Contains numbers in a numerical sequence:", self.sequential_numbers())
+		self.table_print("Contains alphabets in an alphabetical sequence:", self.sequential_letters())
+		self.table_print("Follows current password rules:", self.current_practice())
 
+		self.table_print(f"In the top 10k popular password list:", self.popularity())
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
 	passwd = PasswordStrength("P@ssw0rd", True) #This is not my password ;-)
-
+	
 #-----------------------------------------------------------------------------
 #EOF
