@@ -4,9 +4,21 @@
 
 #-----------------------------------------------------------------------------
 import string
+import sys
 
-with open("top_10k.txt", 'r') as wordlist:
-	top_10k = wordlist.read().splitlines()
+try:
+	with open("top_10k.txt", 'r') as wordlist:
+		top_10k = wordlist.read().splitlines()
+except FileNotFoundError:
+	print("File not found: top_10k.txt")
+	sys.exit()
+
+try:
+	with open("common_words.txt", 'r') as dictonary:
+		common_words = dictonary.read().splitlines()
+except FileNotFoundError:
+	print("File not found: common_words.txt")
+	sys.exit()
 
 #-----------------------------------------------------------------------------
 class PasswordStrength():
@@ -144,6 +156,21 @@ class PasswordStrength():
 
 		return False
 
+	'''Generator to create substrings of atleast 3 characters'''
+	def substrings(self, word):
+	    for i in range(len(word)):
+	        for j in range(i+3, len(word)+1):
+	            yield word[i:j]
+
+	''' Does the password contain common words? '''
+	def dictionary_word(self):
+	        password_substrings = self.substrings(self.password)
+
+	        intersection = [s for s in password_substrings if s in common_words]
+	        if len(intersection) > 0:
+	            return True
+	        return False
+
 	''' Check if password has made it to the top 10k most probable passwords'''
 	def popularity(self):
 		if self.password in top_10k:
@@ -172,7 +199,9 @@ class PasswordStrength():
 		self.table_print("Contains alphabets in an alphabetical sequence:", self.sequential_letters())
 		self.table_print("Follows current password rules:", self.current_practice())
 
-		self.table_print(f"In the top 10k popular password list:", self.popularity())
+		self.table_print("Contains common words from the english dictonary:", self.dictionary_word())
+		self.table_print("In the top 10k popular password list:", self.popularity())
+
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
 	passwd = PasswordStrength("P@ssw0rd", True) #This is not my password ;-)
