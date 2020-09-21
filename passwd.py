@@ -3,8 +3,7 @@
 # Created on 19 Sept 2020
 
 #-----------------------------------------------------------------------------
-import string
-import sys
+import sys, string, math
 
 try:
 	with open("top_10k.txt", 'r') as wordlist:
@@ -158,25 +157,48 @@ class PasswordStrength():
 
 	'''Generator to create substrings of atleast 3 characters'''
 	def substrings(self, word):
-	    for i in range(len(word)):
-	        for j in range(i+3, len(word)+1):
-	            yield word[i:j]
+		for i in range(len(word)):
+			for j in range(i+3, len(word)+1):
+				yield word[i:j]
 
 	''' Does the password contain common words? '''
 	def dictionary_word(self):
-	        password_substrings = self.substrings(self.password)
+			password_substrings = self.substrings(self.password)
 
-	        intersection = [s for s in password_substrings if s in common_words]
-	        if len(intersection) > 0:
-	            return True
-	        return False
+			intersection = [s for s in password_substrings if s in common_words]
+			if len(intersection) > 0:
+				return True
+			return False
 
 	''' Check if password has made it to the top 10k most probable passwords'''
 	def popularity(self):
 		if self.password in top_10k:
 			return True
 		return False
+	''' Find entropy (Measure of randomness) of password. 
+		See https://www.pleacher.com/mp/mlessons/algebra/entropy.html
+	'''
+	def entropy(self):
+		R = 0
+		upper = 0
+		lower = 0
+		digit = 0
+		special = 0
 
+		for char in self.password:
+			if char in string.ascii_uppercase:
+				upper = 26
+			elif char in string.ascii_lowercase:
+				lower = 26  
+			elif char in string.digits:
+				digit = 10
+			elif char in string.punctuation:
+				special = 32
+
+		R = upper + lower + digit + special
+		ent = math.log2(R**(self.length))
+		return ent
+		
 	def table_print(self, desc, value):
 		print("{:<65s}{:>10s}".format(desc, str(value)))
 
@@ -198,7 +220,7 @@ class PasswordStrength():
 		self.table_print("Contains numbers in a numerical sequence:", self.sequential_numbers())
 		self.table_print("Contains alphabets in an alphabetical sequence:", self.sequential_letters())
 		self.table_print("Follows current password rules:", self.current_practice())
-
+		self.table_print("Entropy of password:", self.entropy())
 		self.table_print("Contains common words from the english dictonary:", self.dictionary_word())
 		self.table_print("In the top 10k popular password list:", self.popularity())
 
