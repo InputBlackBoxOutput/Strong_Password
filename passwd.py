@@ -4,6 +4,7 @@
 
 #-----------------------------------------------------------------------------
 import sys, string, math
+# import zxcvbn
 
 try:
 	with open("top_10k.txt", 'r') as wordlist:
