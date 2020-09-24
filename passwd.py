@@ -21,7 +21,7 @@ except FileNotFoundError:
 	sys.exit()
 
 #-----------------------------------------------------------------------------
-class PasswordStrength():
+class PasswordFeatures():
 	def __init__(self, password, verbose=False):
 		self.password = str(password)
 		self.length = len(self.password)
@@ -38,23 +38,35 @@ class PasswordStrength():
 				c += 1
 		return c
 
+	''' Does the password contain the specified character? '''
+	def contains(self, char):
+		if char in self.password:
+			return True
+		return False
+
 	''' Count uppercase characters in password '''
 	def uppercase_count(self):		
 		return self.count(self.password, string.ascii_uppercase)
 
-
-	''' Count lowercase characters in password'''
+	''' Count lowercase characters in password '''
 	def lowercase_count(self):
 		return self.count(self.password, string.ascii_lowercase)
+
+	''' Count all lowercase and uppercase characters '''
+	def alpha_count(self):
+		return self.lowercase_count() + self.uppercase_count()
 
 	''' Count digits in password'''
 	def digit_count(self):
 		return self.count(self.password, string.digits)
 
 	''' Count special characters in password'''
-	def special_count(self):
-		return self.count(self.password, string.punctuation)
+	def special_count(self, custom=None):
+		if custom != None:
+			return self.count(self.password, custom)
 
+		return self.count(self.password, string.punctuation)
+		
 	''' Count special characters & digits within password '''
 	def middle_count(self):
 		c = 0
@@ -227,7 +239,7 @@ class PasswordStrength():
 
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
-	passwd = PasswordStrength("P@ssw0rd", True) #This is not my password ;-)
+	passwd = PasswordFeatures("P@ssw0rd", True) #This is not my password ;-)
 	
 #-----------------------------------------------------------------------------
 #EOF
