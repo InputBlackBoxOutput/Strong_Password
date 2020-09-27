@@ -21,6 +21,7 @@ except FileNotFoundError:
 	sys.exit()
 
 #-----------------------------------------------------------------------------
+''' Implements commonly used password features for determining password strength'''
 class PasswordFeatures():
 	def __init__(self, password, verbose=False):
 		self.password = str(password)
@@ -94,9 +95,10 @@ class PasswordFeatures():
 
 	''' Does the password contain repeating characters ? '''
 	def repeating(self):
-		if self.length - len(set(self.password)) > 0:
-			return True
-		return False
+		repeats = self.length - len(set(self.password))
+		if repeats > 0:
+			return (True, repeats)
+		return (False, 0)
 
 
 	''' Does the password contains consecutive characters with the same case/type ? 
@@ -147,7 +149,8 @@ class PasswordFeatures():
 		else:
 			return 0
 
-	def current_practice(self):
+	''' Does the password follow generally followed password requirements?'''
+	def general_practice(self):
 		upper = False
 		lower = False
 		special = False
@@ -232,7 +235,7 @@ class PasswordFeatures():
 		self.table_print("Consecutive characters having same case/type:", self.consecutive())
 		self.table_print("Contains numbers in a numerical sequence:", self.sequential_numbers())
 		self.table_print("Contains alphabets in an alphabetical sequence:", self.sequential_letters())
-		self.table_print("Follows current password rules:", self.current_practice())
+		self.table_print("Follows current password rules:", self.general_practice())
 		self.table_print("Entropy of password:", self.entropy())
 		self.table_print("Contains common words from the english dictonary:", self.dictionary_word())
 		self.table_print("In the top 10k popular password list:", self.popularity())
