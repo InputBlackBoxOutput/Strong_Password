@@ -3,7 +3,7 @@
 # Created on 19 Sept 2020
 
 #-----------------------------------------------------------------------------
-import sys, string, math
+import sys, string, math, re
 # import zxcvbn
 
 try:
@@ -47,19 +47,19 @@ class PasswordFeatures():
 
 	''' Count uppercase characters in password '''
 	def uppercase_count(self):		
-		return self.count(self.password, string.ascii_uppercase)
+		return len(re.findall("[A-Z]", self.password))
 
 	''' Count lowercase characters in password '''
 	def lowercase_count(self):
-		return self.count(self.password, string.ascii_lowercase)
+		return len(re.findall("[a-z]", self.password))
 
 	''' Count all lowercase and uppercase characters '''
 	def alpha_count(self):
-		return self.lowercase_count() + self.uppercase_count()
+		return len(re.findall("[a-zA-Z]", self.password))
 
 	''' Count digits in password'''
 	def digit_count(self):
-		return self.count(self.password, string.digits)
+		return len(re.findall("[0-9]", self.password))
 
 	''' Count special characters in password'''
 	def special_count(self, custom=None):

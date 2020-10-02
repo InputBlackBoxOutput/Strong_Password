@@ -3,8 +3,6 @@
 # Created on 30 Sept 2020
 
 from passwd import PasswordFeatures
-import re
-from collections import Counter
 
 #-----------------------------------------------------------------------------------------------------
 '''
