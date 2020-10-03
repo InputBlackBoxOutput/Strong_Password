@@ -94,11 +94,13 @@ class PasswordFeatures():
 		return False
 
 	''' Does the password contain repeating characters ? '''
-	def repeating(self):
+	def repeating(self, allowed=0):
 		repeats = self.length - len(set(self.password))
-		if repeats > 0:
+		
+		if repeats > allowed:
 			return (True, repeats)
-		return (False, 0)
+		
+		return (False, repeats)
 
 
 	''' Does the password contains consecutive characters with the same case/type ? 
@@ -148,6 +150,15 @@ class PasswordFeatures():
 			return 1
 		else:
 			return 0
+
+	''' Does the password contain characters as seen on a qwerty keyboard ? '''
+	def sequential_qwerty(self):
+		qwerty_substrings = list(self.substrings('qwertyuiopasdfghjklzxcvbnm!@#$%^&*()_+'))
+
+		for each in qwerty_substrings:
+			if each in self.password:
+				return True
+		return False
 
 	''' Does the password follow generally followed password requirements?'''
 	def general_practice(self):
@@ -235,6 +246,7 @@ class PasswordFeatures():
 		self.table_print("Consecutive characters having same case/type:", self.consecutive())
 		self.table_print("Contains numbers in a numerical sequence:", self.sequential_numbers())
 		self.table_print("Contains alphabets in an alphabetical sequence:", self.sequential_letters())
+		self.table_print("Contains characters as seen on a qwerty keyboard:", self.sequential_qwerty())
 		self.table_print("Follows current password rules:", self.general_practice())
 		self.table_print("Entropy of password:", self.entropy())
 		self.table_print("Contains common words from the english dictonary:", self.dictionary_word())
