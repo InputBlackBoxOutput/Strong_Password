@@ -48,19 +48,19 @@ class Microsoft1(PasswordFeatures):
 
 	def get_score(self):
 		if self.is_long_enough(14) and self.char_set_span(3) and not self.close_varient_in_dictonary(, "0.6", , ))):
-		  return 4
+		  return (4, "Best", 4)
 		  
 		elif self.is_long_enough(8) and self.char_set_span(3) and not self.close_varient_in_dictonary(arguments[0], "0.6", ClientSideStrongPassword.arguments[1], ClientSideStrongPassword.arguments[2]))):
-		  return 3
+		  return (3, "Strong", 4)
 
 		elif self.is_long_enough(8) and self.char_set_span(2) and not self.in_dictonary():
-		  return 2
+		  return (2, "Medium", 4)
 		  
 		elif self.is_long_enough(1) or not self.is_long_enough(0):
-		  return 1
+		  return (1, "Weak", 4)
 		  
 		else:
-		  return 0
+		  return None
 
 		def is_long_enough(self, expected):
 			if self.length < expected:

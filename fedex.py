@@ -37,17 +37,17 @@ class Fedex(PasswordFeatures):
 
     def get_score(self):
         if self.length >= 10 and self.min_requirements() and self.count_unique() >= 6 and not self.lookup_dictonary():
-            return 5
+            return (5, "Very strong", 5)
         elif self.length >= 9 and self.min_requirements() and self.special_count() and self.count_unique() >= 6 and not self.lookup_dictonary(): 
-            return 5
+            return (5, "Very strong", 5)
         elif self.length >= 9 and self.min_requirements() and self.count_unique() >= 6 and not self.lookup_dictonary():
-            return 4
+            return (4, "Strong", 5)
         elif self.min_requirements() and self.count_unique() >= 4 and not self.lookup_dictonary(): 
-            return 3
+            return (3, "Medium", 5)
         elif self.min_requirements():
-            return 2
+            return (2, "Weak", 5)
         else:
-            return 1
+            return (1, "Very weak", 5)
 
 if __name__ == '__main__':
     fedex = Fedex("Password@123")

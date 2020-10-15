@@ -7,7 +7,7 @@ from passwd import PasswordFeatures
 #-----------------------------------------------------------------------------------------------------
 '''
 Used by Medscape (Medical information website)
-Grading: 0-Invalid 1-Short 2- Level1 3- Level2 4- sLevel3
+Grading: 0-Invalid 1-Short 2- Level1 3- Level2 4- Level3
 Note: Special symbols have been ignored during evaluation
 '''
 class Medscape(PasswordFeatures):
@@ -31,13 +31,13 @@ class Medscape(PasswordFeatures):
 	    #     level = 0
 
 	    if self.length < 5 and self.length != 0: 
-	        level = 1
+	        level = (1, "Short", 4)
 	        
 	    else:
-	        level = score + 1
+	        level = (score + 1, f"Level {score} / 3", 4)
 	    
 	    if (self.length == 0 ):
-	    	level = 0
+	    	level = None
 	    
 	    return level
 

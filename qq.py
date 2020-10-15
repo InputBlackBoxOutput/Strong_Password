@@ -29,12 +29,19 @@ class QQ(PasswordFeatures):
 			score += 1
 
 		score = 3 if score > 3 else score
+		if score == 1:
+			score = (1, "Weak", 4)
+		elif score == 2:
+			score = (2, "Moderate", 4)
+		else:
+			score = (3, "Strong", 4)
 
+		#-------------------------------------------------------------
 		if self.length < 6 or re.search("^\d{1,8}$", self.password):
-		    score= 0
+		    score = None 
 
 		if self.length < 8 and score > 1:
-			score = 1
+			score = (1, "Weak", 3)
 		
 		return score
 

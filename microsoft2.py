@@ -16,22 +16,22 @@ class Microsoft2(PasswordFeatures):
 
 	def get_score(self):
 		bits = self.calculate_bits()
-		print(bits)
+		# print(bits)
 
 		if bits >= 128:
-			return 4
+			return (4, "Best", 4)
 
 		elif bits < 128 and bits >= 64:
-			return 3
+			return (3, "Strong", 4)
 		  
 		elif bits < 64 and bits >= 56:
-			return 2
+			return (2, "Medium", 4)
 		  
 		elif bits < 56:
-			return 1
+			return (1, "Weak", 4)
 		  
 		else:
-			return 0
+			return None
 
 	def calculate_bits(self):
 		if self.length < 0:
@@ -73,7 +73,7 @@ class Microsoft2(PasswordFeatures):
 
 #----------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	microsoft2 = Microsoft2("Cat123")
+	microsoft2 = Microsoft2("P@ssword123")
 	print(microsoft2.get_score())
 
 #----------------------------------------------------------------------------------------

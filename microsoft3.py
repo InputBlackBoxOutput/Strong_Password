@@ -38,16 +38,16 @@ class Microsoft3(PasswordFeatures):
 
 
 		if self.length < 8:
-			score = 1
+			score = (1, "Weak", 4)
 
 		if self.length >= 8:
-			score = 2    
+			score = (2, "Medium", 4)   
 
 		if self.length >= 14:
-			score = 3
+			score = (3, "Strong", 4)
 
 			if count_upper and count_special and count_numeric and count_lower:
-				score = 4
+				score = (4, "Best", 4)
 
 		return score
 

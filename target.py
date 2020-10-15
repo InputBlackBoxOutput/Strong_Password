@@ -17,29 +17,29 @@ class Target(PasswordFeatures):
 
 	def get_score(self):
 		if self.length < 8 or not self.valid_password():
-			return 0 
+			return None 
 
 		if self.length >= 15 and self.lowercase_count() and self.uppercase_count() and self.digit_count():
-			return 4
+			return (4, "Extra strong", 4)
 		elif self.length >= 11 and self.lowercase_count() and self.uppercase_count() and self.digit_count():
-			return 3
+			return (3, "Strong", 4)
 		elif self.length >= 9 and self.lowercase_count() and self.uppercase_count():
-			return 2
+			return (2, "Good", 4)
 		elif self.password != "":
-			return 1
+			return (1, "Weak", 4)
 		
 	def valid_password(self):
 		d = re.search("^\d*$", self.password)
 		W = re.search("^\W*$", self.password)
 		a = re.search("^[a-z]*$", self.password)
 		A = re.search("^[A-Z]*$", self.password)
-		print(d, W, a, A)
+		# print(d, W, a, A)
 		
 		return False if (d or W or a or A) else True
 
 #---------------------------------------------------------------------------------
 if __name__ == '__main__':
-	target = Target("Password")
+	target = Target("P@ssw0rd123")
 	print(target.get_score())
 
 #---------------------------------------------------------------------------------

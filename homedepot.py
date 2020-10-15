@@ -17,7 +17,7 @@ class HomeDepot(PasswordFeatures):
 
 	def get_score(self):
 		if self.length < 8 or (self.password.lower() in self.commonPasswordArray) or ((len(self.password.lower().split(self.password[0].lower())) - 1) == self.length):
-			return 1
+			return (1, "Weak", 3)
 
 		score = 0
 		if self.lowercase_count():
@@ -33,13 +33,13 @@ class HomeDepot(PasswordFeatures):
 			score += 1
 
 		if (score > 1 and self.length > 12) or (score > 2 and self.length > 8):
-		    return 3
+		    return (3, "Strong", 3)
 
-		return 2
+		return (2, "Good", 3)
 
 #-----------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	homedepot = HomeDepot("CoolCat")
+	homedepot = HomeDepot("P@ssw0rd123")
 	print(homedepot.get_score())
 
 #-----------------------------------------------------------------------------------------------------

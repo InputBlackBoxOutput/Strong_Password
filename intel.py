@@ -34,14 +34,15 @@ class Intel(PasswordFeatures):
 		
 		if time_to_crack is False:
 			if seconds >= self.cutofftime:
-				return 1
-			return 0
+				return (1, "Pass", " Binary")
+			return (0, "Fail", " Binary")
 		else:
 			return self.time_to_words(seconds)
 		
 if __name__ == '__main__':
-	intel = Intel("abc123###")
-	print(intel.get_score(time_to_crack=True))
+	intel = Intel("P@ssw0rd")
+	print(intel.get_score())
+	# print(intel.get_score(time_to_crack=True))
 
 
 #-----------------------------------------------------------------------------------------------------

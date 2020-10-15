@@ -9,7 +9,7 @@ from collections import Counter
 #-----------------------------------------------------------------------------------------------------
 '''
 Used by Twitter (Social network)
-Grading: 0-Too short/Obvious 1-Too weak 2-Weak 3-Good 4-Strong 5-Very strong
+Grading: 1-Too short/Obvious 2-Too weak 3-Weak 4-Good 5-Strong 6-Very strong
 '''
 class Twitter(PasswordFeatures):
 	def __init__(self, password):
@@ -21,14 +21,14 @@ class Twitter(PasswordFeatures):
 
 	def get_score(self):
 		if self.length < self.minLength:
-			return 0
+			return (1, "Too short/Obvious", 6)
 
 		if self.password.lower() in self.bannedPasswords:
-			return 0
+			return (1, "Too short/Obvious", 6)
 		
 		regex = '''(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\#\`\~\!\@\$\%\^\&\*\(\)\-\_\=\+\[\]\{\}\\\|\;\:\'\"\,\.\<\>\/\?])'''	
 		if re.search(f"{regex}{10,}", self.password):
-			return 1
+			return (2, "Too weak", 6)
 		
 		d = 0
 		d += self.length * 4
@@ -55,13 +55,13 @@ class Twitter(PasswordFeatures):
 			d -= 10;
 
 		if d < 34:
-			return 2
+			return (3, "Weak", 6)
 		elif d < 50:
-			return 3
+			return (4, "Good", 6)
 		elif d < 75:
-			return 4
+			return (5, "Strong", 6)
 		else:
-			return 5
+			return (6, "Very strong", 6)
 
 	def repeat(self, count):
 		c = 0

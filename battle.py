@@ -15,21 +15,21 @@ class Battle(PasswordFeatures):
 		super().__init__(password)
 
 	def get_score(self):
-		result = 0;
+		result = None
 
 		if self.length > 0:
 			if self.length >= 8:
 				if (self.matches_patterns() and self.length > 10 and not self.repeating(allowed=2)[0] and not hasSequentiality(password1)):
-					result = 4
+					result = (4, "Strong", 4)
 
 				else:
 					if (self.matches_patterns() and self.length > 8 and not self.repeating(allowed=2)[0] and not hasSequentiality(password1)):
-						result = 3
+						result = (3, "Fair", 4)
 					else:
-						result = 2
+						result = (2, "Weak", 4)
 									
 			else:
-				result = 1
+				result = (1, "Too short", 4)
 
 		return result
 
