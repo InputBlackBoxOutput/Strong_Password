@@ -19,11 +19,11 @@ class Battle(PasswordFeatures):
 
 		if self.length > 0:
 			if self.length >= 8:
-				if (self.matches_patterns() and self.length > 10 and not self.repeating(allowed=2)[0] and not hasSequentiality(password1)):
+				if (self.matches_patterns() and self.length > 10 and not self.repeating(allowed=2)[0] and not self.sequential()):
 					result = (4, "Strong", 4)
 
 				else:
-					if (self.matches_patterns() and self.length > 8 and not self.repeating(allowed=2)[0] and not hasSequentiality(password1)):
+					if (self.matches_patterns() and self.length > 8 and not self.repeating(allowed=2)[0] and not self.sequential()):
 						result = (3, "Fair", 4)
 					else:
 						result = (2, "Weak", 4)

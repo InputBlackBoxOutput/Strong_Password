@@ -34,8 +34,8 @@ class Intel(PasswordFeatures):
 		
 		if time_to_crack is False:
 			if seconds >= self.cutofftime:
-				return (1, "Pass", " Binary")
-			return (0, "Fail", " Binary")
+				return (1, "Pass", 1)
+			return (0, "Fail", 1)
 		else:
 			return self.time_to_words(seconds)
 		

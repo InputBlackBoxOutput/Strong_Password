@@ -17,7 +17,7 @@ class Target(PasswordFeatures):
 
 	def get_score(self):
 		if self.length < 8 or not self.valid_password():
-			return None 
+			return (0, "Not rated", 4) 
 
 		if self.length >= 15 and self.lowercase_count() and self.uppercase_count() and self.digit_count():
 			return (4, "Extra strong", 4)

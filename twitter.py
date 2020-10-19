@@ -21,10 +21,10 @@ class Twitter(PasswordFeatures):
 
 	def get_score(self):
 		if self.length < self.minLength:
-			return (1, "Too short/Obvious", 6)
+			return (1, "Short/Obvious", 6)
 
 		if self.password.lower() in self.bannedPasswords:
-			return (1, "Too short/Obvious", 6)
+			return (1, "Short/Obvious", 6)
 		
 		regex = '''(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\#\`\~\!\@\$\%\^\&\*\(\)\-\_\=\+\[\]\{\}\\\|\;\:\'\"\,\.\<\>\/\?])'''	
 		if re.search(f"{regex}{10,}", self.password):

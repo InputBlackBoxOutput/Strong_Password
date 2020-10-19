@@ -38,9 +38,9 @@ class QQ(PasswordFeatures):
 
 		#-------------------------------------------------------------
 		if self.length < 6 or re.search("^\d{1,8}$", self.password):
-		    score = None 
+		    score = (0, "Not rated", 3)
 
-		if self.length < 8 and score > 1:
+		if self.length < 8 and score[0] > 1:
 			score = (1, "Weak", 3)
 		
 		return score
