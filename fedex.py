@@ -8,6 +8,24 @@ from passwd import PasswordFeatures
 Used by Fedex (Shipping company)
 Grading: 1-Very Weak 2-Weak 3-Medium 4-Strong 5-Very Strong
 '''
+
+class SubstituteMap:
+    def __init__(self):
+        self.characters = ["e", "s", "s", "g", "t", "b", "l", "g", "t", "a", "o", "l", "z", "i", "i"]
+        self.substitutions = ["3", "5", "$", "6", "7", "8", "|", "9", "+", "@", "0", "1", "2", "!", "1"]
+    
+    def subLookup(self, in_substitute):
+        subCharacter = 0
+        index = -1
+        for i in range(len(self.substitutions)):
+            if (self.substitutions[i] == in_substitute):
+                index = i
+        
+        if (index >= 0):
+            subCharacter = self.characters[index]
+        
+        return subCharacter
+
 class Fedex(PasswordFeatures):
     def __init__(self, password):
         super().__init__(password)
@@ -31,9 +49,26 @@ class Fedex(PasswordFeatures):
         return self.length - self.repeating()[0]
 
     def lookup_dictonary(self):
-        if self.password in self.dictonary:
+        if self.getSubWord() in self.dictonary:
             return True
         return False
+
+    def getSubWord(self):
+        subMap = SubstituteMap()
+        charSub = 0
+        subWord = ""
+        length = 0
+
+        if self.password != None and len(self.password) > 0:
+            subWord = self.password.lower()
+            length = len(subWord)
+
+            for index in range(length):
+                charSub = subMap.subLookup(subWord[index])
+                if (charSub != 0):
+                    subWord = subWord[0:index] + charSub + subWord[index + 1: length]
+        
+        return subWord
 
     def get_score(self):
         if self.length >= 10 and self.min_requirements() and self.count_unique() >= 6 and not self.lookup_dictonary():
@@ -52,5 +87,6 @@ class Fedex(PasswordFeatures):
 if __name__ == '__main__':
     fedex = Fedex("Password@123")
     print(fedex.get_score())
+    # print(fedex.getSubWord())
 #-----------------------------------------------------------------------------------------------------
 #EOF
