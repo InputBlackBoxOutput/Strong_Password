@@ -8,6 +8,7 @@ import string
 '''
 Used by Microsoft (Windows!)
 Grading: 0-Not rated 1-Weak 2-Medium 3-Strong 4-Best
+Note: Canonicalizing word not implemented
 '''
 class Microsoft1(PasswordFeatures):
 	def __init__(self, password):
@@ -95,49 +96,6 @@ class Microsoft1(PasswordFeatures):
 			if self.password in self.dictonary[self.length]:
 				return True
 			return False
-
-		def close_varient_in_dictonary(self):
-			# var strCanonicalizedWord = "";
-			# var nMinimumMeaningfulMatchLength = 0;
-			# if((strWord == null) || isNaN(threshold) || (similarityMap == null) || (dictionary == null)){
-			# 	return true;
-			# }
-			# strCanonicalizedWord = CanonicalizeWord(strWord, similarityMap, kCananicalizeEverything);
-			# nMinimumMeaningfulMatchLength = Math.floor((threshold) * strCanonicalizedWord.length);
-			# for (var nSubStringLength = strCanonicalizedWord.length; nSubStringLength >= nMinimumMeaningfulMatchLength; nSubStringLength--){
-			# 	for(var nSubStringStart = 0; (nSubStringStart + nMinimumMeaningfulMatchLength) < strCanonicalizedWord.length; nSubStringStart++){
-			# 		var strSubWord = strCanonicalizedWord.substr(nSubStringStart, nSubStringLength);
-			# 		if (dictionary.Lookup(strSubWord)){
-			# 			return true;
-			# 		}
-			# 	}
-			# }
-			# return false;
-			pass
-
-		def CanonicalizeWord(self):
-			# var canonicalCounterpart = kNoCanonicalCounterpart;
-			# var strCanonicalizedWord = "";
-			# var nStringLength = 0;
-			# if ((strWord != null) && (strWord.length > 0)){
-			# 	strCanonicalizedWord = strWord;
-			# 	strCanonicalizedWord = strCanonicalizedWord.toLowerCase();
-			# 	if (similarityMap.GetCount() > 0){
-			# 		nStringLength = strCanonicalizedWord.length;
-			# 		for(var index = 0; index < nStringLength; index++){
-			# 			if (fLettersOnly && !isctype(strCanonicalizedWord.charAt(index), kSmallLetter, kDebugTraceLevelSuperDetail)){
-			# 				continue;
-			# 			}
-			# 			canonicalCounterpart = similarityMap.Lookup(strCanonicalizedWord.charAt(index));
-			# 			if (canonicalCounterpart != kNoCanonicalCounterpart){
-			# 				strCanonicalizedWord = strCanonicalizedWord.substring(0, index) + canonicalCounterpart +
-			# 				strCanonicalizedWord.substring(index + 1, nStringLength);
-			# 			}
-			# 		}
-			# 	}
-			# }
-			# return strCanonicalizedWord
-			pass
 
 #----------------------------------------------------------------------------------------
 if __name__ == '__main__':

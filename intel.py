@@ -15,14 +15,15 @@ class Intel(PasswordFeatures):
 		self.cutofftime=24*365*1000 
 
 	def time_to_words(self, seconds):
-		minutes = (seconds / 60)
+		# print(seconds)
+		minutes = math.floor(seconds / 60)
 		hours = math.floor(minutes / 60)
 		days = math.floor(hours / 24)
 		weeks = math.floor(days / 7)
 		months = math.floor(days / 30)
 		years = math.floor(days / 365)
 		  
-		return f"{years} year(s) {months} month(s) {weeks} week(s) {days} day(s) {hours} hour(s) {minutes} minute(s)"
+		return f"{years} year(s) \n{months} month(s) \n{weeks} week(s) \n{days} day(s) \n{hours} hour(s) \n{minutes} minute(s)"
 
 	def passwd_entropy(self):
 		return math.pow(26,self.lowercase_count()) * math.pow(26,self.uppercase_count()) * math.pow(10,self.digit_count()) * math.pow(32, self.special_count());
@@ -31,7 +32,8 @@ class Intel(PasswordFeatures):
 		entropy = self.passwd_entropy() /2
 		hours = entropy / (2 * math.pow(2, 33)); # Divided by std computer power
 		seconds = (math.floor(hours * 36000000))/10000;
-		
+		# print(seconds)
+
 		if time_to_crack is False:
 			if seconds >= self.cutofftime:
 				return (1, "Pass", 1)

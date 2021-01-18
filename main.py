@@ -26,6 +26,7 @@ from yahoo import Yahoo
 #---------------------------------------------------------------------------------------
 class StrongPassword:
 	def __init__(self, passwd):
+		print(f"Password under evaluation: {passwd}\n")
 		self.weights = {
 			"_12306cn"       :1,
 			"battle"         :1,
@@ -133,7 +134,7 @@ class StrongPassword:
 
 #---------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	evaluator = StrongPassword("ABCDEF123!@#$%")
+	evaluator = StrongPassword("P@ssw0rd")
 
 	# Print the score card
 	evaluator.score_table()
