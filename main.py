@@ -132,19 +132,30 @@ class StrongPassword:
 
 		return w_score
 
+	def unit_test(passwd='P@ssw0rd', weights=None):
+		evaluator = StrongPassword(passwd)
+
+		# Print the score card
+		evaluator.score_table()
+
+		# Print weighted score 
+		print(f"\nWeighted score: {evaluator.get_weighted_score()}")
+
+		# Set weights (To be tested)
+		# evaluator.set_weights(fedex=4)
+		# print(evaluator.weights)
+
 #---------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	evaluator = StrongPassword("P@ssw0rd")
+	import argparse
+	parser = argparse.ArgumentParser(description='Determine the strength of a password using multiple commercial password strength evaluators')
+	parser.add_argument("-p", type=str, help="password to evaluate", default='P@ssw0rd')
+	args = parser.parse_args()
 
-	# Print the score card
+	evaluator = StrongPassword(args.p)
 	evaluator.score_table()
-
-	# Print weighted score 
 	print(f"\nWeighted score: {evaluator.get_weighted_score()}")
 	
-	# Set weights
-	# evaluator.set_weights(fedex=4)
-	# print(evaluator.weights)
 
 #---------------------------------------------------------------------------------------
 # EOF
